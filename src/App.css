@@ -13,11 +13,6 @@ h1 {
   text-align: center;
 }
 
-.todo {
-  display: flex;
-  flex-direction: column;
-}
-
 thead tr td {
   text-align: center;
 }
