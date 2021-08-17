@@ -1,56 +1,53 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { AddTodo } from './AddTodo';
 import { Todo } from './Todo';
 
-export class Todos extends Component {
+export function Todos({ todos, onChange }) {
+  function remove(removedId) {
+    const updated = todos.filter((todo) => todo.id !== removedId);
+    onChange(updated);
+  }
 
-  //Component state with default values
-  state = {
-    addTodoDescription: "",
-    todos: [
-      {
-        id: 1,
-        description: "Lorem ipsum dolor sit amet",
-        completed: false
-      },
-      {
-        id: 2,
-        description: "consectetur adipiscing elit",
-        completed: true
-      },
-      {
-        id: 3,
-        description: "tsed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-        completed: false
+  function complete(completedId) {
+    const updated = todos.map(
+      (todo) => {
+        if (todo.id === completedId) {
+          todo.completed = !todo.completed;
+        }
+        return todo;
       }
-    ]
+    );
+    onChange(updated);
   }
 
-  render() {
-    return (
-      <div className="child">
-        <table className="table">
-          <thead>
-            <tr>
-              <td></td>
-              <td>What to do next</td>
-              <td></td>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.todos.map((todo, index) => (
-              <tr key={todo.id}>
-                <Todo index={index + 1} todo={todo} />
-              </tr>
-            ))}
-            <tr>
-              <td colSpan="3">
-                <AddTodo addTodoDescription={this.state.addTodoDescription} />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    );
+  function add(description) {
+    const id = todos.reduce((acc, todo) => Math.max(todo.id, acc), 0) + 1;
+    onChange([...todos, { id, description, completed: false } ]);
   }
+
+  return (
+    <div className="child">
+      <table className="table">
+        <thead>
+          <tr>
+            <td></td>
+            <td>What to do next</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+          {todos.map((todo, index) => (
+            <tr key={todo.id}>
+              <Todo index={index + 1} todo={todo} onRemove={remove} onComplete={complete} />
+            </tr>
+          ))}
+          <tr>
+            <td colSpan="3">
+              <AddTodo onAdd={add} />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
 }

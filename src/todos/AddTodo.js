@@ -1,19 +1,36 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-export class AddTodo extends Component {
-  state = {
-    defaultValue: "",
-    description: this.props.addTodoDescription
+const initialDescription = '';
+
+export function AddTodo({ onAdd }) {
+  const [description, setDescription] = useState(initialDescription);
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    if (description !== '') {
+      onAdd(description);
+      setDescription(initialDescription);
+    }
   }
 
-  render() {
-    return (
-      <div className="child">
-        <input type="text" id="todoDescription" placeholder="Todo description" />
+  function handleDescriptionChange(event) {
+    setDescription(event.target.value);    
+  }
+
+  return (
+    <div className="child">
+      <form onSubmit={handleSubmit}>
+        <input 
+          type="text" 
+          id="todoDescription" 
+          placeholder="Todo description" 
+          onChange={handleDescriptionChange} 
+          value={description} 
+        />
         <div>
-          <button type="button" id="buttonAddTodo">Add Todo</button>
+          <button type="submit" id="buttonAddTodo">Add Todo</button>
         </div>
-      </div>
-    );
-  }
+      </form>
+    </div>
+  );
 }

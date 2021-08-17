@@ -1,30 +1,42 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Todo.css';
 
-export class Todo extends Component {
+export function Todo({ todo, onRemove, onComplete }) {
+	function remove() {
+		onRemove(todo.id);
+	}
 
-  render() {
-    return (
-      <React.Fragment >
-        <td style={{ width: 15 }}>
-          <input type="checkbox" />
-        </td>
-        <td>
-          {
-            this.renderTodo()
-          }
-        </td>
-        <td style={{ width: 100 }}>
-          <button>Delete</button>
-        </td>
-      </React.Fragment>
-    );
-  }
+	function complete() {
+		onComplete(todo.id);
+	}
 
-  renderTodo() {
-    if (this.props.todo.completed)
-      return <s>{this.props.todo.description}</s>;
+	return (
+	  <React.Fragment >
+	    <td style={{ width: 15 }}>
+	      <input 
+	      	id={ 'todo_' + todo.id }
+	      	type="checkbox" 
+	      	checked={todo.completed} 	
+	      	onChange={complete} 
+      	/>
+	    </td>
+	    <td>
+	    	<label htmlFor={'todo_' + todo.id}>
+	      {
+	        renderTodo()
+	      }
+	      </label>
+	    </td>
+	    <td style={{ width: 100 }}>
+	      <button onClick={remove}>Delete</button>
+	    </td>
+	  </React.Fragment>
+	);
+
+  function renderTodo() {
+    if (todo.completed)
+      return <s>{todo.description}</s>;
     else
-      return this.props.todo.description;
+      return todo.description;
   }
 }
