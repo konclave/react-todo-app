@@ -1,7 +1,4 @@
-export function Summary({ todos }) {
-	const total = todos.length;
-	const completed = todos.reduce((acc, todo) => acc += Number(todo.completed), 0);
-
+export function Summary({ total, completed }) {
 	return (
 		<div className="todos-summary">
 			<span>Total of items: {total}</span>

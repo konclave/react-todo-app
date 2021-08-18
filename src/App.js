@@ -5,7 +5,7 @@ import { useTodosPersist } from './todos/todosPersistHook';
 import './App.css';
 
 function App() {
-  const [ todos, setTodos ] = useTodosPersist();
+  const [ todos, completed, setTodos ] = useTodosPersist();
 
   return (
     <div className="todo-app">
@@ -13,11 +13,11 @@ function App() {
         <h1 className="todo-app__title">React TODO App</h1>
       </header>
       <main>
-        <Todos todos={todos} onChange={setTodos} />
+        <Todos todos={todos} completed={completed} onChange={setTodos} />
       </main>
       <footer>
         <div className="todo-app__summary">
-          <Summary todos={todos} />
+          <Summary total={todos.length} completed={completed} />
         </div>
       </footer>
     </div>
