@@ -1,6 +1,7 @@
 import React from 'react';
 import { AddTodo } from './AddTodo';
 import { Todo } from './Todo';
+import './Todos.css';
 
 export function Todos({ todos, onChange }) {
   function remove(removedId) {
@@ -26,28 +27,16 @@ export function Todos({ todos, onChange }) {
   }
 
   return (
-    <div className="child">
-      <table className="table">
-        <thead>
-          <tr>
-            <td></td>
-            <td>What to do next</td>
-            <td></td>
-          </tr>
-        </thead>
-        <tbody>
-          {todos.map((todo, index) => (
-            <tr key={todo.id}>
-              <Todo index={index + 1} todo={todo} onRemove={remove} onComplete={complete} />
-            </tr>
-          ))}
-          <tr>
-            <td colSpan="3">
-              <AddTodo onAdd={add} />
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div className="todos">
+      <h2 className="todos__title">What to do next</h2>
+      <ul className="todos__items todos-list">
+        {todos.map((todo, index) => (
+          <li className="todos-list__item" key={todo.id}>
+            <Todo index={index + 1} todo={todo} onRemove={remove} onComplete={complete} />
+          </li>
+        ))}
+      </ul>
+      <AddTodo onAdd={add} />
     </div>
   );
 }

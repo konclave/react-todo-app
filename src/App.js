@@ -8,12 +8,18 @@ function App() {
   const [ todos, setTodos ] = useTodosPersist();
 
   return (
-    <div className="container">
-      <h1 className="child">React TODO App</h1>
-      <Todos todos={todos} onChange={setTodos} />
-      <div className="child">
-        <Summary todos={todos} />
-      </div>
+    <div className="todo-app">
+      <header>
+        <h1 className="todo-app__title">React TODO App</h1>
+      </header>
+      <main>
+        <Todos todos={todos} onChange={setTodos} />
+      </main>
+      <footer>
+        <div className="todo-app__summary">
+          <Summary todos={todos} />
+        </div>
+      </footer>
     </div>
   );
 }

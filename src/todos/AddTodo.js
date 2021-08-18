@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './AddTodo.css';
 
 const initialDescription = '';
 
@@ -18,19 +19,20 @@ export function AddTodo({ onAdd }) {
   }
 
   return (
-    <div className="child">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="add-todo">
         <input 
+          className="add-todo__input"
           type="text" 
           id="todoDescription" 
-          placeholder="Todo description" 
+          placeholder="Add a todo" 
           onChange={handleDescriptionChange} 
           value={description} 
         />
-        <div>
-          <button type="submit" id="buttonAddTodo">Add Todo</button>
-        </div>
+        <button 
+          className="add-todo__submit"
+          type="submit" 
+          id="buttonAddTodo"
+        >＋</button>
       </form>
-    </div>
   );
 }

@@ -1,17 +1,42 @@
-.container {
+.todo-app {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: min-content min-content min-content;
+  margin: 0 auto;
+  padding: 0 15px;
+  max-width: 600px;
+  height: 100vh;
+}
+
+.todo-app > * {
   display: grid;
 }
 
-.child {
-  margin: 0 auto;
-}
-
-h1 {
+.todo-app__title {
   padding-bottom: 50px;
   padding-top: 50px;
   text-align: center;
 }
 
-thead tr td {
-  text-align: center;
+.todo-app__summary {
+  text-align: right;
+  padding: 20px 30px 15px;
+}
+
+@media (max-width: 360px) {
+  .todo-app {
+    grid-template-rows: min-content 1fr min-content;
+  }
+  
+  .todo-app__title {
+    padding: 10px;
+    box-sizing: border-box;
+    font-size:  1.75em;
+  }
+
+  .todo-app__summary {
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+  }
 }

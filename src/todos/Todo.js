@@ -11,32 +11,21 @@ export function Todo({ todo, onRemove, onComplete }) {
 	}
 
 	return (
-	  <React.Fragment >
-	    <td style={{ width: 15 }}>
-	      <input 
-	      	id={ 'todo_' + todo.id }
-	      	type="checkbox" 
-	      	checked={todo.completed} 	
-	      	onChange={complete} 
-      	/>
-	    </td>
-	    <td>
-	    	<label htmlFor={'todo_' + todo.id}>
-	      {
-	        renderTodo()
-	      }
-	      </label>
-	    </td>
-	    <td style={{ width: 100 }}>
-	      <button onClick={remove}>Delete</button>
-	    </td>
-	  </React.Fragment>
+	  <div className={'todo' + (todo.completed ? ' todo_completed' : '')}>
+      <input 
+      	className="todo__check"
+      	id={ 'todo_' + todo.id }
+      	type="checkbox" 
+      	checked={todo.completed} 	
+      	onChange={complete} 
+    	/>
+    	<label 
+    		className="todo__description" 
+    		htmlFor={'todo_' + todo.id}
+  		>
+      {todo.description}
+      </label>
+      <button className="todo__remove" onClick={remove}>❌</button>
+	  </div>
 	);
-
-  function renderTodo() {
-    if (todo.completed)
-      return <s>{todo.description}</s>;
-    else
-      return todo.description;
-  }
 }

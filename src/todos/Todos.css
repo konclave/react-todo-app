@@ -1,0 +1,33 @@
+.todos {
+
+}
+
+.todos__title {
+	font-size: 1.5em;
+	font-weight: normal;
+}
+
+.todos__items {
+	margin-bottom: 20px;
+	padding: 0;
+}
+
+.todos-list {
+	list-style: none;
+}
+
+.todos-list__item {
+	margin: 0 0 5px;
+}
+
+@media (max-width: 360px) {
+	.todos {
+		display: grid;
+		grid-template-rows: min-content 1fr min-content;
+	}
+
+	.todos__title {
+		text-align: center;
+		margin: 0;
+	}
+}

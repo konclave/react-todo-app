@@ -1,0 +1,22 @@
+.add-todo {
+	display: flex;
+	align-items: center;
+}
+
+.add-todo__input {
+	flex: 1;
+	padding: 5px 10px;
+}
+
+.add-todo__submit {
+	background: none;
+	padding: 0;
+	border: none;
+	margin-left: auto;
+	font-weight: bold;
+	font-size: 1.5em;
+	width: 25px;
+	height: 25px;
+	line-height: 25px;
+	cursor: pointer; 
+}
