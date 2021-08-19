@@ -8,11 +8,8 @@ const todoMock = {
   completed: false
 }
 
-const onCompleteMock = jest.fn();
-const onRemoveMock = jest.fn();
-
 test('renders todo', () => {
-  render(<Todo todo={todoMock} onRemove={onRemoveMock} onComplete={onCompleteMock} />);
+  render(<Todo todo={todoMock} onRemove={() => {}} onComplete={() => {}} />);
   const todoDescriptionElement = screen.getByText(todoMock.description);
   const checkBox = screen.getByLabelText(todoMock.description);
   expect(todoDescriptionElement).toBeInTheDocument();
@@ -20,13 +17,15 @@ test('renders todo', () => {
 });
 
 test('calls onComplete callback on todo complete', () => {
-  render(<Todo todo={todoMock} onRemove={onRemoveMock} onComplete={onCompleteMock} />);
+  const onCompleteMock = jest.fn();
+  render(<Todo todo={todoMock} onRemove={() => {}} onComplete={onCompleteMock} />);
   userEvent.click(screen.getByLabelText(todoMock.description));
   expect(onCompleteMock).toBeCalledWith(todoMock.id);
 });
 
 test('calls onRemove callback on todo remove', () => {
-  render(<Todo todo={todoMock} onRemove={onRemoveMock} onComplete={onCompleteMock} />);
+  const onRemoveMock = jest.fn();
+  render(<Todo todo={todoMock} onRemove={onRemoveMock} onComplete={() => {}} />);
   userEvent.click(screen.getByText('❌'));
   expect(onRemoveMock).toBeCalledWith(todoMock.id);
 });
