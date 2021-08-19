@@ -1,6 +1,5 @@
 import React from 'react';
-import { Todos } from './todos/Todos';
-import { Summary } from './todos/Summary';
+import { Todos, Summary } from './todos/components/';
 import { useTodosPersist } from './todos/todosPersistHook';
 import './App.css';
 

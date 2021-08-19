@@ -1,6 +1,6 @@
 import React from 'react';
-import { AddTodo } from './AddTodo';
-import { Todo } from './Todo';
+import { AddTodo } from '../AddTodo/AddTodo';
+import { Todo } from '../Todo/Todo';
 import './Todos.css';
 
 export function Todos({ todos, completed, onChange }) {
