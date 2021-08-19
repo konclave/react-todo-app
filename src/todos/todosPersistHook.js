@@ -8,7 +8,7 @@ export function useTodosPersist() {
     const jsonTodos = window.localStorage.getItem('todos');
     if (jsonTodos) {
       const stored = JSON.parse(jsonTodos);
-      setTodos(stored);
+      update(stored);
     }
   }, []);
 
