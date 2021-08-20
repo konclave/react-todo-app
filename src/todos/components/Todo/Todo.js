@@ -1,13 +1,14 @@
 import React from 'react';
+import { removeTodo, completeTodo } from '../../stores/todos';
 import './Todo.css';
 
-export function Todo({ todo, onRemove, onComplete }) {
+function TodoComponent({ todo }) {
 	function remove() {
-		onRemove(todo.id);
+		removeTodo(todo.id);
 	}
 
 	function complete() {
-		onComplete(todo.id);
+		completeTodo(todo.id);
 	}
 
 	return (
@@ -33,3 +34,5 @@ export function Todo({ todo, onRemove, onComplete }) {
   		</div>
 	);
 }
+
+export const Todo = React.memo(TodoComponent);

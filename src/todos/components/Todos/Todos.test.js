@@ -1,4 +1,7 @@
 import { render, screen } from '@testing-library/react';
+import { getValue, cleanStores, keepActive } from 'nanostores';
+import { todos as todosStore } from '../../stores/todos';
+import { completed as completedStore } from '../../stores/completed';
 import { Todos } from './Todos';
 
 const todosMock = [
@@ -19,22 +22,34 @@ const todosMock = [
   }
 ];
 
-const completed = 1;
+beforeEach(() => {
+  keepActive(todosStore);
+  keepActive(completedStore);
+});
+
+afterEach(() => {
+  cleanStores(todosStore, completedStore);
+});
 
 test('renders todos', () => {
-  render(<Todos todos={todosMock} completed={completed} onChange={() => {}}/>);
+  todosStore.set(todosMock);
+  completedStore.set(1);
+  render(<Todos />);
   const todos = screen.getAllByRole('listitem');
   expect(todos.length).toEqual(todosMock.length);
 });
 
 test('renders relevant title for todos has incomplete items', () => {
-  render(<Todos todos={todosMock} completed={completed} onChange={() => {}}/>);
+  todosStore.set(todosMock);
+  completedStore.set(1);
+  render(<Todos />);
   const title = screen.getByText('What to do next');
   expect(title).toBeInTheDocument();
 });
 
 test('renders relevant title for empty todos', () => {
-  render(<Todos todos={[]} completed={0} onChange={() => {}}/>);
+  todosStore.set([]);
+  render(<Todos />);
   const title = screen.getByText('Nothing to do.');
   expect(title).toBeInTheDocument();
 });
@@ -44,8 +59,9 @@ test('renders relevant title for completed todos', () => {
     todo.completed = true;
     return todo;
   });
-
-  render(<Todos todos={completedMock} completed={completedMock.length} onChange={() => {}}/>);
+  todosStore.set(completedMock);
+  completedStore.set(todosMock.length);
+  render(<Todos />);
   const title = screen.getByText('Everything is done!');
   expect(title).toBeInTheDocument();
 });

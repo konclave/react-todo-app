@@ -1,30 +1,14 @@
 import React from 'react';
+import { useStore } from 'nanostores/react';
+import { todos as todosStore } from '../../stores/todos';
+import { completed as completedStore } from '../../stores/completed';
 import { AddTodo } from '../AddTodo/AddTodo';
 import { Todo } from '../Todo/Todo';
 import './Todos.css';
 
-export function Todos({ todos, completed, onChange }) {
-  function remove(removedId) {
-    const updated = todos.filter((todo) => todo.id !== removedId);
-    onChange(updated);
-  }
-
-  function complete(completedId) {
-    const updated = todos.map(
-      (todo) => {
-        if (todo.id === completedId) {
-          todo.completed = !todo.completed;
-        }
-        return todo;
-      }
-    );
-    onChange(updated);
-  }
-
-  function add(description) {
-    const id = todos.reduce((acc, todo) => Math.max(todo.id, acc), 0) + 1;
-    onChange([...todos, { id, description, completed: false } ]);
-  }
+export function Todos() {
+  const todos = useStore(todosStore);
+  const completed = useStore(completedStore);
 
   function renderTitle() {
     if (todos.length === 0) {
@@ -42,11 +26,11 @@ export function Todos({ todos, completed, onChange }) {
       <ul className="todos__items todos-list">
         {todos.map((todo, index) => (
           <li className="todos-list__item" key={todo.id}>
-            <Todo index={index + 1} todo={todo} onRemove={remove} onComplete={complete} />
+            <Todo index={index + 1} todo={todo} />
           </li>
         ))}
       </ul>
-      <AddTodo onAdd={add} />
+      <AddTodo />
     </div>
   );
 }

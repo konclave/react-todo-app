@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
+import { addTodo } from '../../stores/todos';
 import './AddTodo.css';
 
 const initialDescription = '';
 
-export function AddTodo({ onAdd }) {
+export function AddTodo() {
   const [description, setDescription] = useState(initialDescription);
 
   function handleSubmit(event) {
     event.preventDefault();
     if (description !== '') {
-      onAdd(description);
+      addTodo(description);
       setDescription(initialDescription);
     }
   }
